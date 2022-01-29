@@ -1,0 +1,39 @@
+number = 1
+digit_1 = 0
+digit_2 = 0
+digit_3 = 0
+digit_4 = 0
+digit_5 = 0
+digit_7 = 0
+digit_8 = 0
+digit_9 = 0
+digit_10 = 0
+summ = 0
+summ_of_numbers = 0
+while number <= 1000:
+    if number % 2 != 0:
+        degree = number ** 3
+        digit_1 = degree // 1000000000
+        digit_2 = degree // 100000000
+        digit_2 = digit_2 % 10
+        digit_3 = degree // 10000000
+        digit_3 = digit_3 % 10
+        digit_4 = degree // 1000000
+        digit_4 = digit_4 % 10
+        digit_5 = degree // 100000
+        digit_5 = digit_5 % 10
+        digit_6 = degree // 10000
+        digit_6 = digit_6 % 10
+        digit_7 = degree // 1000
+        digit_7 = digit_7 % 10
+        digit_8 = degree // 100
+        digit_8 = digit_8 % 10
+        digit_9 = degree // 10
+        digit_9 = digit_9 % 10
+        digit_10 = degree % 10
+        summ = digit_1 + digit_2 + digit_3 + digit_4 + digit_5 + digit_6 + digit_7 + digit_8 + digit_9 + digit_10
+        if summ % 7 == 0:
+            summ_of_numbers += number
+            print(f'{number} ^3: {degree} sum: {summ_of_numbers} [ {summ} ]')
+
+    number = number + 1

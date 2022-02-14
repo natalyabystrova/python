@@ -11,8 +11,6 @@ print(new_lst)
 print(list(dict.fromkeys(src)))
 
 # с множествами:
-
-
 def my_set(*args):
     _set = set()
     l = []

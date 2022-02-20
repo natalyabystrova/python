@@ -19,7 +19,7 @@ if __name__ == '__main__':
     try:
         _arg_value = float(args[0])
     except ValueError:
-        print('Arg should be a float')
+        print('Arg should be float')
         exit(1)
 
     save_to_file(_arg_value)

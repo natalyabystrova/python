@@ -6,9 +6,11 @@ _args_len = len(args)
 if _args_len > 2:
     print('must be 2 args or less')
     exit(1)
+_arg_value = None
 
 try:
-    _arg_value = int(args[0])
+    if _args_len:
+        _arg_value = int(args[0])
 except ValueError:
     print('Args should be int')
     exit(1)

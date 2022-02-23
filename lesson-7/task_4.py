@@ -1,33 +1,25 @@
 import os
 from os.path import join
-from os import scandir
-gen1 = scandir(join('./lesson-7/some_data_adv 2'))
-result = {}
-lst = []
-lst_count = 0
-lst_count2 = 0
-for file in gen1:
-    size = os.stat(file).st_size
-    print(len(str(size)))
-    lst.append(size)
-print(lst)
-for i in lst:
-    if 10000 < i < 100000:
-        lst_count += lst.count(i)
-        result[100000] = lst_count
-    elif 1000 <i < 10000:
-        lst_count2 += lst.count(i)
-        result[10000] = lst_count2
 
-print(lst_count)
-print(lst_count2)
-print(result)
+for root, _, files in os.walk('./lesson-7/some_data_adv 2', topdown=False):
+    res = []
+    for file_name in files:
+        _size = os.stat(join(root, file_name)).st_size
+        res.append(_size)
+    _max = max(res)
+    _min = min(res)
 
-подпапки?
+    result = {}
+    for k in range(1, len(str(_max)) + 1):
+        result[10 ** k] = 0
 
-    # if result[k]:
-    #     result[k] += 1
-    # else:
-    #     result[k] = 1
-# lst = [1, 2, 3, 3]
-# print(lst.count(3))
+    for r in res:
+        _s = len(str(r))
+        _l = 10 ** (_s - 1)
+        _r = 10 ** _s
+        if _l < r < _r:
+            result[_r] += 1
+
+    print(result)
+
+

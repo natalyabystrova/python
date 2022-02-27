@@ -1,6 +1,4 @@
 import re
-
-# email_address = """geek-brains@mail.ru"""
 email = re.compile(r"""(?P<name>\-{0,}?\+{0,}?\'{0,}?\.{0,}?\w+?\+{0,}?\-
 {0,}?\.{0,}?\'{0,}?\w+?)@
 (?P<domain>\w+\.{0,}?\-{0,}?\w+)""", re.VERBOSE)

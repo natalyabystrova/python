@@ -30,10 +30,9 @@ result = {}
 for i in lst:
     t = type(i)
     if result.get(t):
-        result[t] += i.consumption
+        result[t] += round(i.consumption, 2)
     else:
-        result[t] = i.consumption
+        result[t] = round(i.consumption, 2)
+
 print(result)
-
-
 

@@ -23,8 +23,6 @@ class Date:
         return f'Введенная дата : {self.date}'
 
 
-
-
 c1 = Date('14-03-2022')
 print(c1)
 print(Date.extract('12-11-2022'))

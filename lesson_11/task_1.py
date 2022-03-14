@@ -25,12 +25,9 @@ class Date:
 
 c1 = Date('14-03-2022')
 print(c1)
-print(Date.extract('12-11-2022'))
+print(Date.extract('12-03-2022'))
 print(Date.valid('12-12-2000'))
 print(Date.valid('32-12-2000'))
 print(Date.valid('12-00-2000'))
 print(Date.valid('12-12-2025'))
-
-
-
 

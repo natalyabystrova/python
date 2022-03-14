@@ -1,14 +1,29 @@
 class Storage:
-    def __init__(self, name):
-        self.name = name
-        self.dicts = {}
-    def reception(self):
-        if self.dicts.get(self.name):
-            self.dicts[self.name] += 1
-        else:
-            self.dicts[self.name] = 1
-        print(f' Товар {self.name} был принят на склад.'
-              f' Текущее количество товаров на складе: {self.dicts}')
+    def __init__(self, vendor_code):
+        self.vendor_code = vendor_code
+    @classmethod
+    def reception(cls, *vendor_codes):
+        dicts = {}
+        for code in vendor_codes:
+            if dicts.get(code):
+                dicts[code] += 1
+            else:
+                dicts[code] = 1
+        print(f' Товары с артикулами {vendor_codes} были приняты на склад.'
+                  f' Текущее количество товаров на складе: {dicts}')
+
+    @classmethod
+    def transfer(cls, *vendor_codes):
+        dicts = {}
+        for code in vendor_codes:
+            if dicts.get(code):
+                dicts[code] += 1
+            else:
+                dicts[code] = 1
+        print(f' Товары с артикулами {vendor_codes} были переданы в подразделения кампании.'
+                  f' Текущее количество переданных товаров : {dicts}')
+
+
 
 class Office_equipment:
     def __init__(self, name, model, color):
@@ -52,9 +67,10 @@ c2 = Scanner('Nikon', 'x200', 'black', '1000')
 print(c2)
 c3 = Copier('Xiomi', 'x500', 'white', 'yes')
 print(c3)
+Storage.reception('112', '12325', 'S234325', '112')
+Storage.transfer('005', '79797', '1', '112')
+# Storage.reception(c2, c1, c3)
 
-c4 = Storage('Samsung')
-c4.reception()
-c5 = Storage('Siemens')
-c5.reception()
+
+
 

@@ -1,4 +1,3 @@
-
 class Storage:
     def __init__(self):
         self.data = {}
@@ -9,19 +8,21 @@ class Storage:
                 self.data[e] += n
             else:
                 self.data[e] = n
-
-        print(f'Товары {equipment} были приняты на склад.'
-              f'\n\nТекущее количество товаров на складе: {self.data}')
+        for key, value in self.data.items():
+            print(f'ТОВАР {key} \nБЫЛ ПРИНЯТ НА СКЛАД.'
+                  f'\n\nТекущее количество данного товара на складе: {value} штук(а)')
 
     def transfer(self, *equipment, n):
         if type(n) == int:
             for e in equipment:
-                if self.data.get(e) and self.data[e] > 0:
-                    self.data[e] -= n
-                    print(f'\n\nТовары {equipment} были переданы в подразделения кампании.'
-                    f'Текущее количество переданных товаров : {self.data}')
-                else:
-                    print("К сожалению, данные товары отсутствуют на складе в неободимом количестве.")
+                for key, value in self.data.items():
+                    if self.data.get(e) and self.data[e] > 0:
+                        self.data[e] -= n
+                        print(f'\n\nТовар {key} был передан в подразделения кампании.\n'
+                        f'Текущее количество данного товара на складе: {value} штук(а)(и)')
+                    else:
+                        print(f'К сожалению, данный товар отсутствуют на складе в неободимом количестве.'
+                              f'Текущее количество данного товара на складе: {value} штук(а)(и)')
         else:
             print("Ошибка! Второй аргумент должен быть числом!")
 
@@ -44,7 +45,7 @@ class Printer(OfficeEquipment):
         self.print_speed = print_speed
 
     def __str__(self):
-        return f'{super.__str__(self)}' \
+        return f'{super.__str__(self)}\n' \
                f'Скорость принтера: {self.print_speed}'
 
 
@@ -71,19 +72,17 @@ class Copier(OfficeEquipment):
 storage = Storage()
 
 c1 = Printer('Canon', 'x100', '12423', '400')
-# print(c1)
+print(c1)
 c2 = Scanner('Nikon', 'x200', '7656', '1000')
-# print(c2)
+print(c2)
 c3 = Copier('Xiomi', 'x500', '47647', 'yes')
-# print(c3)
+print(c3)
 
-# storage.reception(c1, n=3)
-# storage.reception(c1, n=1)
-# storage.reception(c1, n=0)
-storage.reception(c1, n=1)
+storage.reception(c1, n=3)
 storage.transfer(c1, n=1)
+
 storage.transfer(c1, n=1)
-storage.transfer(c1, n=5)
-storage.transfer(c1, n='ап')
+storage.transfer(c1, n="jkbl")
+
 
 

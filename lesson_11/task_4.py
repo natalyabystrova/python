@@ -1,24 +1,29 @@
 
 class Storage:
     def __init__(self):
-        self._data = {}
+        self.data = {}
 
-    def reception(self, *vendor_codes):
-        for code in vendor_codes:
-            if self._data.get(code):
-                self._data[code] += 1
+    def reception(self, *equipment, n):
+        for e in equipment:
+            if self.data.get(e):
+                self.data[e] += n
             else:
-                self._data[code] = 1
+                self.data[e] = n
 
-        print(f'Товары с артикулами {vendor_codes} были приняты на склад.'
-              f'\n\nТекущее количество товаров на складе: {self._data}')
+        print(f'Товары {equipment} были приняты на склад.'
+              f'\n\nТекущее количество товаров на складе: {self.data}')
 
-    def transfer(self, *vendor_codes):
-        for code in vendor_codes:
-            if self._data.get(code) and self._data[code] > 0:
-                self._data[code] -= 1
-        print(f'\n\nТовары с артикулами {vendor_codes} были переданы в подразделения кампании.'
-              f'Текущее количество переданных товаров : {self._data}')
+    def transfer(self, *equipment, n):
+        if type(n) == int:
+            for e in equipment:
+                if self.data.get(e) and self.data[e] > 0:
+                    self.data[e] -= n
+                    print(f'\n\nТовары {equipment} были переданы в подразделения кампании.'
+                    f'Текущее количество переданных товаров : {self.data}')
+                else:
+                    print("К сожалению, данные товары отсутствуют на складе в неободимом количестве.")
+        else:
+            print("Ошибка! Второй аргумент должен быть числом!")
 
 
 class OfficeEquipment:
@@ -66,17 +71,19 @@ class Copier(OfficeEquipment):
 storage = Storage()
 
 c1 = Printer('Canon', 'x100', '12423', '400')
-print(c1)
+# print(c1)
 c2 = Scanner('Nikon', 'x200', '7656', '1000')
-print(c2)
+# print(c2)
 c3 = Copier('Xiomi', 'x500', '47647', 'yes')
-print(c3)
-c4 = Printer('Canon', 'x100', '12423', '400')
-print(c4)
+# print(c3)
 
-storage.reception(c1, c2, c3, c1)
-storage.transfer(c1)
-
-
+# storage.reception(c1, n=3)
+# storage.reception(c1, n=1)
+# storage.reception(c1, n=0)
+storage.reception(c1, n=1)
+storage.transfer(c1, n=1)
+storage.transfer(c1, n=1)
+storage.transfer(c1, n=5)
+storage.transfer(c1, n='ап')
 
 

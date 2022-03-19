@@ -2,29 +2,29 @@ class Storage:
     def __init__(self):
         self.data = {}
 
-    def reception(self, *equipment, n):
-        for e in equipment:
-            if self.data.get(e):
-                self.data[e] += n
+    def reception(self, data):
+        for cls, count in data:
+            if self.data.get(cls.name):
+                self.data[cls.name] += count
             else:
-                self.data[e] = n
-        for key, value in self.data.items():
-            print(f'ТОВАР {key} \nБЫЛ ПРИНЯТ НА СКЛАД.'
-                  f'\n\nТекущее количество данного товара на складе: {value} штук(а)')
+                self.data[cls.name] = count
 
-    def transfer(self, *equipment, n):
-        if type(n) == int:
-            for e in equipment:
-                for key, value in self.data.items():
-                    if self.data.get(e) and self.data[e] > 0:
-                        self.data[e] -= n
-                        print(f'\n\nТовар {key} был передан в подразделения кампании.\n'
-                        f'Текущее количество данного товара на складе: {value} штук(а)(и)')
-                    else:
-                        print(f'К сожалению, данный товар отсутствуют на складе в неободимом количестве.'
-                              f'Текущее количество данного товара на складе: {value} штук(а)(и)')
-        else:
-            print("Ошибка! Второй аргумент должен быть числом!")
+        for key, value in self.data.items():
+            print(f'ТОВАР {key} БЫЛ ПРИНЯТ НА СКЛАД.'
+                  f'\nТекущее количество данного товара на складе: {value} штук(а)\n')
+
+    def transfer(self, data):
+        for cls, count in data:
+            if type(count) == int:
+                if self.data.get(cls.name) and self.data[cls.name] > 0:
+                    self.data[cls.name] -= count
+                    print(f'\n\nТовар {cls.name} был передан в подразделения кампании.\n'
+                    f'Текущее количество данного товара на складе: {self.data[cls.name]} штук(а)(и)')
+                else:
+                    print(f'К сожалению, данный товар отсутствуют на складе в неободимом количестве.'
+                          f'Текущее количество данного товара на складе: {self.data[cls.name]} штук(а)(и)')
+            else:
+                print("Ошибка! Второй аргумент должен быть числом!")
 
 
 class OfficeEquipment:
@@ -77,12 +77,14 @@ c2 = Scanner('Nikon', 'x200', '7656', '1000')
 print(c2)
 c3 = Copier('Xiomi', 'x500', '47647', 'yes')
 print(c3)
+user_list = [[c1, 5], [c2, 6]]
+user_transfer_list = [[c1, 1], [c2, 1], [c2, 'sdvsgsd']]
 
-storage.reception(c1, n=3)
-storage.transfer(c1, n=1)
 
-storage.transfer(c1, n=1)
-storage.transfer(c1, n="jkbl")
+storage.reception(user_list)
+storage.transfer(user_transfer_list)
+
+
 
 
 

@@ -1,30 +1,47 @@
+class OwnError(Exception):
+    pass
+
+
 class Storage:
     def __init__(self):
         self.data = {}
 
     def reception(self, data):
         for cls, count in data:
-            if self.data.get(cls.name):
-                self.data[cls.name] += count
-            else:
-                self.data[cls.name] = count
+            try:
+                if type(count) != int:
+                    raise OwnError("Вы ввели не число!")
+                else:
+                    if self.data.get(cls.name):
+                        self.data[cls.name] += count
+                    else:
+                        self.data[cls.name] = count
+
+            except OwnError as err:
+                print(f'Вы ввели: "{count}" {err}! Введите число!')
 
         for key, value in self.data.items():
-            print(f'ТОВАР {key} БЫЛ ПРИНЯТ НА СКЛАД.'
-                  f'\nТекущее количество данного товара на складе: {value} штук(а)\n')
+            print(f' ТОВАР {key} БЫЛ ПРИНЯТ НА СКЛАД '
+                  f'\nТекущее количество данного товара на складе: {value}')
+
 
     def transfer(self, data):
         for cls, count in data:
-            if type(count) == int:
-                if self.data.get(cls.name) and self.data[cls.name] > 0:
+            try:
+                if type(count) != int:
+                    raise OwnError('Вы ввели не число!')
+                elif self.data.get(cls.name) and self.data[cls.name] >= count:
                     self.data[cls.name] -= count
                     print(f'\n\nТовар {cls.name} был передан в подразделения кампании.\n'
                     f'Текущее количество данного товара на складе: {self.data[cls.name]} штук(а)(и)')
-                else:
+                elif self.data[cls.name] < count:
+                    # for key, value in self.data.items():
                     print(f'К сожалению, данный товар отсутствуют на складе в неободимом количестве.'
-                          f'Текущее количество данного товара на складе: {self.data[cls.name]} штук(а)(и)')
+                              f'Текущее количество данного товара на складе: {self.data[cls.name]} штук(а)(и)')
+            except OwnError as err:
+                print((f'\nВы ввели: "{count}" {err}! Введите число!'))
             else:
-                print("Ошибка! Второй аргумент должен быть числом!")
+                print("Число введено корректно!")
 
 
 class OfficeEquipment:
@@ -72,17 +89,18 @@ class Copier(OfficeEquipment):
 storage = Storage()
 
 c1 = Printer('Canon', 'x100', '12423', '400')
-print(c1)
+# print(c1)
 c2 = Scanner('Nikon', 'x200', '7656', '1000')
-print(c2)
+# print(c2)
 c3 = Copier('Xiomi', 'x500', '47647', 'yes')
-print(c3)
-user_list = [[c1, 5], [c2, 6]]
-user_transfer_list = [[c1, 1], [c2, 1], [c2, 'sdvsgsd']]
+# print(c3)
+user_list = [[c1, 3], [c2, 2], [c1, 4], [c1, 'ger'], [c3, 'rhdd']]
+user_transfer_list = [[c1, 'kbll'], [c1, 7], [c2, 3]]
 
 
 storage.reception(user_list)
 storage.transfer(user_transfer_list)
+
 
 
 

@@ -89,11 +89,11 @@ class Copier(OfficeEquipment):
 storage = Storage()
 
 c1 = Printer('Canon', 'x100', '12423', '400')
-# print(c1)
+print(c1)
 c2 = Scanner('Nikon', 'x200', '7656', '1000')
-# print(c2)
+print(c2)
 c3 = Copier('Xiomi', 'x500', '47647', 'yes')
-# print(c3)
+print(c3)
 user_list = [[c1, 3], [c2, 2], [c1, 4], [c1, 'ger'], [c3, 'rhdd']]
 user_transfer_list = [[c1, 'kbll'], [c1, 7], [c2, 3]]
 

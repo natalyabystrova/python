@@ -34,8 +34,8 @@ class Complex:
             imag_part = (self.real * other.imag) + (self.imag * other.real)
         return f'Умножение: {Complex(real_part, imag_part)}'
 
-a = Complex(3, -2)
-b = Complex(4, 1)
+a = Complex(2, 3)
+b = Complex(-1, 1)
 c = 3
 print(a)
 print(b)

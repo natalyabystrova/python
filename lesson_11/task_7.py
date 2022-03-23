@@ -1,4 +1,51 @@
 class Complex:
+    def __init__(self, real, imag):
+        self.real = real  #действительная часть
+        self.imag = imag  #мнимая часть
+
+
+    def __str__(self):
+        return f'{self.real}{self.imag:+}j'
+
+    def __add__(self, other):
+        if isinstance(other, float) or isinstance(other, int):
+            real_part = self.real + other
+            imag_part = self.imag
+        if isinstance(other, Complex):
+            real_part = self.real + other.real
+            imag_part = self.imag + other.imag
+        return f'Cложение: {Complex(real_part, imag_part)}'
+
+    def __sub__(self, other):
+        if isinstance(other, float) or isinstance(other, int):
+            real_part = self.real - other
+            imag_part = self.imag
+        if isinstance(other, Complex):
+            real_part = self.real - other.real
+            imag_part = self.imag - other.imag
+        return f'Вычитание: {Complex(real_part, imag_part)}'
+
+    def __mul__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            real_part = self.real * other
+            imag_part = self.imag * other
+        if isinstance(other, Complex):
+            real_part = (self.real * other.real) - (self.imag * other.imag)
+            imag_part = (self.real * other.imag) + (self.imag * other.real)
+        return f'Умножение: {Complex(real_part, imag_part)}'
+
+a = Complex(3, -2)
+b = Complex(4, 1)
+c = 3
+print(a)
+print(b)
+print(a + b)
+print(a * b)
+print(a - b)
+print(a + c)
+
+#c использованием встроенной функции:
+class Complex:
     def __init__(self, real, imag=0):
         self.complex = complex(real, imag)
 
@@ -19,12 +66,19 @@ class Complex:
         complex = self.complex * other
         return Complex(complex.real, int(complex.imag))
 
-c1 = Complex(5, 4)
-c2 = Complex(-2, 3)
-print(c1, c2)
-print(c1 + c2)
-print(c1 * c2)
+    def __sub__(self, other):
+        if isinstance(other, Complex):
+            other = other.complex
 
+        complex = self.complex - other
+        return Complex(complex.real, int(complex.imag))
+
+# c1 = Complex(2+3j)
+# c2 = Complex(-1+1j)
+# print(c1, c2)
+# print(c1 + c2)
+# print(c1 * c2)
+# print(c1 - c2)
 
 
 

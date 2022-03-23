@@ -1,105 +1,84 @@
-class OwnError(Exception):
-    pass
+class Complex:
+    def __init__(self, real, imag):
+        self.real = real  #действительная часть
+        self.imag = imag  #мнимая часть
 
-
-class Storage:
-    def __init__(self):
-        self.data = {}
-
-    def reception(self, data):
-        for cls, count in data:
-            try:
-                if type(count) != int:
-                    raise OwnError("Вы ввели не число!")
-                else:
-                    if self.data.get(cls.name):
-                        self.data[cls.name] += count
-                    else:
-                        self.data[cls.name] = count
-
-            except OwnError as err:
-                print(f'Вы ввели: "{count}" {err}! Введите число!')
-
-        for key, value in self.data.items():
-            print(f' ТОВАР {key} БЫЛ ПРИНЯТ НА СКЛАД '
-                  f'\nТекущее количество данного товара на складе: {value}')
-
-
-    def transfer(self, data):
-        for cls, count in data:
-            try:
-                if type(count) != int:
-                    raise OwnError('Вы ввели не число!')
-                elif self.data.get(cls.name) and self.data[cls.name] >= count:
-                    self.data[cls.name] -= count
-                    print(f'\n\nТовар {cls.name} был передан в подразделения кампании.\n'
-                    f'Текущее количество данного товара на складе: {self.data[cls.name]} штук(а)(и)')
-                elif self.data[cls.name] < count:
-                    # for key, value in self.data.items():
-                    print(f'К сожалению, данный товар отсутствуют на складе в неободимом количестве.'
-                              f'Текущее количество данного товара на складе: {self.data[cls.name]} штук(а)(и)')
-            except OwnError as err:
-                print((f'\nВы ввели: "{count}" {err}! Введите число!'))
-            else:
-                print("Число введено корректно!")
-
-
-class OfficeEquipment:
-    def __init__(self, name, model, vendor_codes):
-        self.name = name
-        self.model = model
-        self.vendor_codes = vendor_codes
-
-    def __repr__(self):
-        return f'\nНазвание оборудования: {self.name}' \
-               f'\nМодель: {self.model}' \
-               f'\nАртикул: {self.vendor_codes}'
-
-
-class Printer(OfficeEquipment):
-    def __init__(self, name, model, vendor_codes, print_speed):
-        super().__init__(name, model, vendor_codes)
-        self.print_speed = print_speed
 
     def __str__(self):
-        return f'{super.__str__(self)}\n' \
-               f'Скорость принтера: {self.print_speed}'
+        return f'{self.real}{self.imag:+}j'
 
+    def __add__(self, other):
+        if isinstance(other, float) or isinstance(other, int):
+            real_part = self.real + other
+            imag_part = self.imag
+        if isinstance(other, Complex):
+            real_part = self.real + other.real
+            imag_part = self.imag + other.imag
+        return f'Cложение: {Complex(real_part, imag_part)}'
 
-class Scanner(OfficeEquipment):
-    def __init__(self, name, model, vendor_codes, permission):
-        super().__init__(name, model, vendor_codes)
-        self.permission = permission
+    def __sub__(self, other):
+        if isinstance(other, float) or isinstance(other, int):
+            real_part = self.real - other
+            imag_part = self.imag
+        if isinstance(other, Complex):
+            real_part = self.real - other.real
+            imag_part = self.imag - other.imag
+        return f'Вычитание: {Complex(real_part, imag_part)}'
+
+    def __mul__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            real_part = self.real * other
+            imag_part = self.imag * other
+        if isinstance(other, Complex):
+            real_part = (self.real * other.real) - (self.imag * other.imag)
+            imag_part = (self.real * other.imag) + (self.imag * other.real)
+        return f'Умножение: {Complex(real_part, imag_part)}'
+
+a = Complex(2, 3)
+b = Complex(-1, 1)
+c = 3
+print(a)
+print(b)
+print(a + b)
+print(a * b)
+print(a - b)
+print(a + c)
+
+#c использованием встроенной функции:
+class Complex:
+    def __init__(self, real, imag=0):
+        self.complex = complex(real, imag)
 
     def __str__(self):
-        return f'{super.__str__(self)}' \
-               f'Разрешение сканера: {self.permission}'
+        return self.complex.__str__()
 
+    def __add__(self, other):
+        if isinstance(other, Complex):
+            other = other.complex
 
-class Copier(OfficeEquipment):
-    def __init__(self, name, model, vendor_codes, scaling):
-        super().__init__(name, model, vendor_codes)
-        self.scaling = scaling
+        complex = self.complex + other
+        return Complex(complex.real, int(complex.imag))
 
-    def __str__(self):
-        return f'{super.__str__(self)}' \
-               f'Масштабирование ксерокса: {self.scaling}'
+    def __mul__(self, other):
+        if isinstance(other, Complex):
+            other = other.complex
 
+        complex = self.complex * other
+        return Complex(complex.real, int(complex.imag))
 
-storage = Storage()
+    def __sub__(self, other):
+        if isinstance(other, Complex):
+            other = other.complex
 
-c1 = Printer('Canon', 'x100', '12423', '400')
-print(c1)
-c2 = Scanner('Nikon', 'x200', '7656', '1000')
-print(c2)
-c3 = Copier('Xiomi', 'x500', '47647', 'yes')
-print(c3)
-user_list = [[c1, 3], [c2, 2], [c1, 4], [c1, 'ger'], [c3, 'rhdd']]
-user_transfer_list = [[c1, 'kbll'], [c1, 7], [c2, 3]]
+        complex = self.complex - other
+        return Complex(complex.real, int(complex.imag))
 
-
-storage.reception(user_list)
-storage.transfer(user_transfer_list)
+# c1 = Complex(2+3j)
+# c2 = Complex(-1+1j)
+# print(c1, c2)
+# print(c1 + c2)
+# print(c1 * c2)
+# print(c1 - c2)
 
 
 

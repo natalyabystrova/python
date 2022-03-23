@@ -18,3 +18,6 @@ c1 = OwnError(5, 2)
 c2 = OwnError(5, 0)
 c1.division()
 c2.division()
+
+
+

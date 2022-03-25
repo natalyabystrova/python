@@ -1,41 +1,39 @@
 import time
+
+
+class DateInitError(Exception):
+    pass
+
+
 class Date:
     def __init__(self, date):
         self.date = str(date)
+        a, b, c = (Date.extract(self.date))
+        try:
+            if Date.valid(self.date):
+                print(f'{str(c)}.{str(b).zfill(2)}.{str(a).zfill(2)}'
+                      f' \nДата: {self.date}, результат: дата введена правильно')
+        except DateInitError:
+            print(f'{str(c)}.{str(b).zfill(2)}.{str(a).zfill(2)}'
+                  f' \nДата: {self.date}, результат: дата введена неправильно')
 
     def __str__(self):
         a, b, c = (Date.extract(self.date))
-        if Date.valid(self.date):
-            return f' {str(c)}.{str(b).zfill(2)}.{str(a).zfill(2)}' \
-                   f' \nДата {self.date}, результат: дата введена правильно!'
-
-        else:
-            return f' {str(c)}.{str(b).zfill(2)}.{str(a).zfill(2)}' \
-                   f' \nДата {self.date}, результат: дата введена неправильно!'
+        return f'{str(c)}.{str(b).zfill(2)}.{str(a).zfill(2)}'
 
     @classmethod
     def extract(cls, date):
-        res = date.split('-')
-        return int(res[0]), int(res[1]), int(res[2])
+        a, b, c = date.split('-')
+        return int(a), int(b), int(c)
 
     @staticmethod
     def valid(date):
         try:
-            valid_date = time.strptime(date, '%d-%m-%Y')
-        except ValueError:
-            return False
-        else:
+            time.strptime(date, '%d-%m-%Y')
             return True
+        except Exception as exc:
+            raise DateInitError()
+
 
 c1 = Date('11-03-1899')
-print(c1)
 c2 = Date('12-13-1899')
-print(c2)
-
-
-
-
-
-
-
-

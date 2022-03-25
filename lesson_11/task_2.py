@@ -1,23 +1,23 @@
 class OwnError(Exception):
-    def __init__(self, number1, number2):
-        self.number1 = number1
-        self.number2 = number2
-
-    def division(self):
-        try:
-            res = self.number1 / self.number2
-        except ZeroDivisionError:
-            print(f'На ноль делить нельзя. Введите положительный делитель. Введенные числа:'
-                  f' {self.number1} (делимое), {self.number2} (делитель)')
-        else:
-            print(f'Программа выполняется корректно. Результат : {round(res, 2)}')
-        finally:
-            print("Программа завершена.")
-
-c1 = OwnError(5, 2)
-c2 = OwnError(5, 0)
-c1.division()
-c2.division()
+    pass
 
 
+def division(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError as exc:
+        raise OwnError(exc)
 
+
+try:
+    print(division(5, 2))
+except OwnError:
+    pass
+
+a = 5
+b = 0
+try:
+    division(a, b)
+except OwnError as exc:
+    print(f'На ноль делить нельзя. Введите положительный делитель. Введенные числа:'
+          f' {a} (делимое), {b} (делитель)')

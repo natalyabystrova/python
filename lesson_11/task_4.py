@@ -3,7 +3,6 @@ class Complex:
         self.real = real  #действительная часть
         self.imag = imag  #мнимая часть
 
-
     def __str__(self):
         return f'{self.real}{self.imag:+}j'
 
@@ -11,38 +10,41 @@ class Complex:
         if isinstance(other, float) or isinstance(other, int):
             real_part = self.real + other
             imag_part = self.imag
+            return Complex(real_part, imag_part)
         if isinstance(other, Complex):
             real_part = self.real + other.real
             imag_part = self.imag + other.imag
-        return f'Cложение: {Complex(real_part, imag_part)}'
+            return Complex(real_part, imag_part)
 
     def __sub__(self, other):
         if isinstance(other, float) or isinstance(other, int):
             real_part = self.real - other
             imag_part = self.imag
+            return Complex(real_part, imag_part)
         if isinstance(other, Complex):
             real_part = self.real - other.real
             imag_part = self.imag - other.imag
-        return f'Вычитание: {Complex(real_part, imag_part)}'
+            return Complex(real_part, imag_part)
 
     def __mul__(self, other):
         if isinstance(other, int) or isinstance(other, float):
             real_part = self.real * other
             imag_part = self.imag * other
+            return Complex(real_part, imag_part)
         if isinstance(other, Complex):
             real_part = (self.real * other.real) - (self.imag * other.imag)
             imag_part = (self.real * other.imag) + (self.imag * other.real)
-        return f'Умножение: {Complex(real_part, imag_part)}'
+            return Complex(real_part, imag_part)
+
 
 a = Complex(2, 3)
 b = Complex(-1, 1)
 c = 3
-print(a)
-print(b)
-print(a + b)
-print(a * b)
-print(a - b)
-print(a + c)
+print(f'Умножение: {a * b}')
+print(f'Вычитание: {a - b}')
+print(f'Cложение: {a + b}')
+print(f'Cложение: {a + c}')
+
 
 #c использованием встроенной функции:
 class Complex:
